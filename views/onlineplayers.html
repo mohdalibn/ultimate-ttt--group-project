@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team G - Online Players List</title>
+    <link rel="stylesheet" href="../static/onlineplayers.css">
+</head>
+<body>
+
+    <h1 class="display-header">Ultimate Tic Tac Toe Game Team G</h1>
+
+    <div class="body-container">
+
+        <div class="body-div right-side-div">
+
+            <h1 class="display-header dark-title">Player Statistics</h1>
+
+            <div class="player-stats">
+
+                  <!-- All temporary Dummy texts will be replaced with dynamic data  in the future -->
+                <h2 class="h1-label">Username</h2> 
+
+                <h2 class="h1-output">{{current_player}}</h2>
+        
+                <h2 class="h1-label">Wins</h2>
+
+                <h2 class="h1-output">{{curr_wins}}</h2>
+        
+                <h2 class="h1-label">Losses</h2>
+
+                <h2 class="h1-output">{{curr_losses}}</h2>
+        
+                <h2 class="h1-label">Rank</h2>
+
+                <h2 class="h1-output">{{current_player_rank}}</h2>
+
+            </div>
+          
+            <div class="reset-container">
+                <form method="get" >
+                    <button class="reset-button" type="submit" formaction="/resetpassword">Reset Password</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="body-div center-div">
+
+            <h1 class="display-header">Online Players</h1>
+        
+            <form class="form-container" method="post">
+                <!-- Storing the current user's details -->
+                <input type="hidden" name="current_player" id="current_player" value="{{current_player}}" hidden>
+                
+                <!-- Displaying the usernames of all online players with a play button next to it  -->
+                % for player in online_players:
+        
+                <div class="row-container">
+                    <div class="opp-name">
+                        {{player}}
+                    </div>
+    
+                    <div class="btn-div">
+                        <button class="play-game" type="submit" name="opponent" value="{{player}}" formaction="/create_game/{{current_player}}/{{player}}">Play Game</button>
+                    </div>
+                   
+                </div>
+        
+        
+                % end
+        
+            </form>
+
+        </div>
+
+        <div class="body-div left-side-div">
+
+            <h1 class="display-header dark-title">Leaderboard</h1>
+
+            <div class="table-div">
+                <table class="leaderboard-table">
+    
+                    <tr class="table-header">
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Wins</th>
+                    </tr>
+        
+                    <tbody class="table-body">
+
+                        % for i in range(1, len(leaderboard_list) +1):
+                        <tr>
+                            <td>{{i}}</td>
+                            <td>{{leaderboard_list[i-1][0]}}</td>
+                            <td>{{leaderboard_list[i-1][1]}}</td>  
+                        </tr>
+                        % end
+
+                    </tbody>
+                   
+                </table>
+            </div>
+          
+        </div>
+    </div>
+
+</body>
+</html>
